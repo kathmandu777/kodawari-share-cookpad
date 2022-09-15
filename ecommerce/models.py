@@ -4,6 +4,8 @@ from django.db.models.signals import post_save
 from django.shortcuts import reverse
 from django_countries.fields import CountryField
 
+from core.models import BaseModelMixin
+
 CATEGORY_CHOICES = (("S", "Shirt"), ("SW", "Sport wear"), ("OW", "Outwear"))
 
 LABEL_CHOICES = (("P", "primary"), ("S", "secondary"), ("D", "danger"))
@@ -14,7 +16,7 @@ ADDRESS_CHOICES = (
 )
 
 
-class UserProfile(models.Model):
+class UserProfile(BaseModelMixin):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     stripe_customer_id = models.CharField(max_length=50, blank=True, null=True)
     one_click_purchasing = models.BooleanField(default=False)
@@ -23,7 +25,7 @@ class UserProfile(models.Model):
         return self.user.username
 
 
-class Item(models.Model):
+class Item(BaseModelMixin):
     title = models.CharField(max_length=100)
     price = models.FloatField()
     discount_price = models.FloatField(blank=True, null=True)
@@ -46,7 +48,7 @@ class Item(models.Model):
         return reverse("ecommerce:remove-from-cart", kwargs={"slug": self.slug})
 
 
-class OrderItem(models.Model):
+class OrderItem(BaseModelMixin):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     ordered = models.BooleanField(default=False)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
@@ -70,7 +72,7 @@ class OrderItem(models.Model):
         return self.get_total_item_price()
 
 
-class Order(models.Model):
+class Order(BaseModelMixin):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     ref_code = models.CharField(max_length=20, blank=True, null=True)
     items = models.ManyToManyField(OrderItem)
@@ -113,7 +115,7 @@ class Order(models.Model):
         return total
 
 
-class Address(models.Model):
+class Address(BaseModelMixin):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     street_address = models.CharField(max_length=100)
     apartment_address = models.CharField(max_length=100)
@@ -129,7 +131,7 @@ class Address(models.Model):
         verbose_name_plural = "Addresses"
 
 
-class Payment(models.Model):
+class Payment(BaseModelMixin):
     stripe_charge_id = models.CharField(max_length=50)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
     amount = models.FloatField()
@@ -139,7 +141,7 @@ class Payment(models.Model):
         return self.user.username
 
 
-class Coupon(models.Model):
+class Coupon(BaseModelMixin):
     code = models.CharField(max_length=15)
     amount = models.FloatField()
 
@@ -147,7 +149,7 @@ class Coupon(models.Model):
         return self.code
 
 
-class Refund(models.Model):
+class Refund(BaseModelMixin):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     reason = models.TextField()
     accepted = models.BooleanField(default=False)
