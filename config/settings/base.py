@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     "django_countries",
     "ecommerce",
     "core",
+    "myaccount",
 ]
 
 MIDDLEWARE = [
