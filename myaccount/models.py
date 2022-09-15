@@ -9,16 +9,16 @@ from core.models import UuidModelMixin
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
-    def create_user(self, name, password):
-        if not name:
-            raise ValueError("The given name must be set")
-        user = self.model(name=name)
+    def create_user(self, email, password):
+        if not email:
+            raise ValueError("The given email must be set")
+        user = self.model(email=email)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, name, password):
-        user = self.model(name=name)
+    def create_superuser(self, email, password):
+        user = self.model(email=email)
         user.is_admin = True
         user.is_superuser = True
         user.is_staff = True
