@@ -25,13 +25,24 @@ class UserProfile(BaseModelMixin):
         return self.user.username
 
 
+class Shop(BaseModelMixin):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    image = models.ImageField()
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("ecommerce:shop", kwargs={"pk": self.uuid})
+
+
 class Item(BaseModelMixin):
     title = models.CharField(max_length=100)
     price = models.FloatField()
     discount_price = models.FloatField(blank=True, null=True)
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
     label = models.CharField(choices=LABEL_CHOICES, max_length=1)
-    slug = models.SlugField()
     description = models.TextField()
     image = models.ImageField()
 
@@ -39,13 +50,13 @@ class Item(BaseModelMixin):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("ecommerce:product", kwargs={"slug": self.slug})
+        return reverse("ecommerce:product", kwargs={"pk": self.uuid})
 
     def get_add_to_cart_url(self):
-        return reverse("ecommerce:add-to-cart", kwargs={"slug": self.slug})
+        return reverse("ecommerce:add-to-cart", kwargs={"pk": self.uuid})
 
     def get_remove_from_cart_url(self):
-        return reverse("ecommerce:remove-from-cart", kwargs={"slug": self.slug})
+        return reverse("ecommerce:remove-from-cart", kwargs={"pk": self.uuid})
 
 
 class OrderItem(BaseModelMixin):
