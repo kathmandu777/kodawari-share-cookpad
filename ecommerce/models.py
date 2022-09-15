@@ -6,10 +6,6 @@ from django_countries.fields import CountryField
 
 from core.models import BaseModelMixin
 
-CATEGORY_CHOICES = (("S", "Shirt"), ("SW", "Sport wear"), ("OW", "Outwear"))
-
-LABEL_CHOICES = (("P", "primary"), ("S", "secondary"), ("D", "danger"))
-
 ADDRESS_CHOICES = (
     ("B", "Billing"),
     ("S", "Shipping"),
@@ -29,6 +25,8 @@ class Shop(BaseModelMixin):
     name = models.CharField(max_length=100)
     description = models.TextField()
     image = models.ImageField()
+    gather_link = models.URLField(max_length=500, blank=True, null=True)
+    gather_password = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -37,12 +35,22 @@ class Shop(BaseModelMixin):
         return reverse("ecommerce:shop", kwargs={"pk": self.uuid})
 
 
+class Category(BaseModelMixin):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):  # TODO: implement this page
+        return reverse("ecommerce:category", kwargs={"pk": self.uuid})
+
+
 class Item(BaseModelMixin):
     title = models.CharField(max_length=100)
     price = models.FloatField()
     discount_price = models.FloatField(blank=True, null=True)
-    category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
-    label = models.CharField(choices=LABEL_CHOICES, max_length=1)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     description = models.TextField()
     image = models.ImageField()
 
