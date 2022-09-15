@@ -49,6 +49,7 @@ class Category(BaseModelMixin):
 class Item(BaseModelMixin):
     title = models.CharField(max_length=100)
     price = models.FloatField()
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE, default=None)
     discount_price = models.FloatField(blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     description = models.TextField()
