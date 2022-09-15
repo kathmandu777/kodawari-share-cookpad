@@ -4,6 +4,7 @@
 <main>
   <div class="container">
 
+    {% comment %}
     <!--Navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-3 mb-5">
 
@@ -48,7 +49,7 @@
       <!-- Collapsible content -->
 
     </nav>
-    <!--/.Navbar-->
+    <!--/.Navbar--> {% endcomment %}
 
     <!--Section: Products v.3-->
     <section class="text-center mb-4">
@@ -70,12 +71,12 @@
 
             <div class="card-body text-center">
               <a href="" class="grey-text">
-                <h5>{{ item.get_category_display }}</h5>
+                <h5>{{ item.category.name }}</h5>
               </a>
               <h5>
                 <strong>
                   <a href="{{ item.get_absolute_url }}" class="dark-grey-text">{{ item.title }}
-                    <span class="badge badge-pill {{ item.get_label_display }}-color">NEW</span>
+                    <!-- <span class="badge badge-pill {{ item.get_label_display }}-color">NEW</span> -->
                   </a>
                 </strong>
               </h5>

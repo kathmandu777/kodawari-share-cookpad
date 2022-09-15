@@ -5,8 +5,12 @@
 <main class="mt-5 pt-4">
   <div class="container dark-grey-text mt-5">
 
+
+    <h4 class="my-4 h4 text-center">Product information</h4>
+
     <!--Grid row-->
     <div class="row wow fadeIn">
+
 
       <!--Grid column-->
       <div class="col-md-6 mb-4">
@@ -60,7 +64,7 @@
             Remove from cart
           </a>
           <div></div> <!-- Fixme: this fu*king code for style -->
-          <a href="{{ object.shop.gather_link }}" class="btn btn-secondary btn-md p">
+          <a href="{{ object.shop.gather_link }}" class="btn btn-secondary btn-md p" target="_blank">
             Contact Seller
           </a>
 
@@ -75,19 +79,27 @@
 
     <hr>
 
+    <h4 class="my-4 h4 text-center">Shop information</h4>
+
     <!--Grid row-->
     <div class="row d-flex justify-content-center wow fadeIn">
 
-      <!--Grid column-->
-      <div class="col-md-6 text-center">
-
-        <h4 class="my-4 h4">Shop information</h4>
-        <h5>{{ item.shop.name }}</h5>
-        <p>{{ item.shop.description }}</p>
-
+      <div class="col-md-6 mb-4 text-center">
+        <img src="{{ item.shop.image.url}}" class="img-fluid" alt="">
       </div>
-      <!--Grid column-->
 
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+        <div class="p-4">
+
+          <h5>{{ item.shop.name }}</h5>
+
+          <p class="lead font-weight-bold">Description</p>
+
+          <p>{{ item.shop.description }}</p>
+        </div>
+      </div>
     </div>
     <!--Grid row-->
 

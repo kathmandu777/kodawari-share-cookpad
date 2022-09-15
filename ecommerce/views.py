@@ -306,8 +306,8 @@ class ItemDetailView(DetailView):
 
 
 @login_required
-def add_to_cart(request, uuid):
-    item = get_object_or_404(Item, uuid=uuid)
+def add_to_cart(request, pk):
+    item = get_object_or_404(Item, uuid=pk)
     order_item, created = OrderItem.objects.get_or_create(item=item, user=request.user, ordered=False)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
     if order_qs.exists():
@@ -331,8 +331,8 @@ def add_to_cart(request, uuid):
 
 
 @login_required
-def remove_from_cart(request, uuid):
-    item = get_object_or_404(Item, uuid=uuid)
+def remove_from_cart(request, pk):
+    item = get_object_or_404(Item, uuid=pk)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
     if order_qs.exists():
         order = order_qs[0]
@@ -345,15 +345,15 @@ def remove_from_cart(request, uuid):
             return redirect("ecommerce:order-summary")
         else:
             messages.info(request, "This item was not in your cart")
-            return redirect("ecommerce:product", uuid=uuid)
+            return redirect("ecommerce:product", uuid=pk)
     else:
         messages.info(request, "You do not have an active order")
-        return redirect("ecommerce:product", uuid=uuid)
+        return redirect("ecommerce:product", uuid=pk)
 
 
 @login_required
-def remove_single_item_from_cart(request, uuid):
-    item = get_object_or_404(Item, uuid=uuid)
+def remove_single_item_from_cart(request, pk):
+    item = get_object_or_404(Item, uuid=pk)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
     if order_qs.exists():
         order = order_qs[0]
