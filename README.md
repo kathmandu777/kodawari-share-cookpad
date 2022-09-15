@@ -9,7 +9,7 @@
   </p>
 </p>
 
-### *** Deprecation warning ***
+### ***Deprecation warning***
 
 This project was created almost two years ago. Since then, there is a newer version of the project which you can find [here](https://github.com/justdjango/django-simple-ecommerce)
 
@@ -30,6 +30,29 @@ This is a very simple e-commerce website built with Django.
 The website displays products. Users can add and remove products to/from their cart while also specifying the quantity of each item. They can then enter their address and choose Stripe to handle the payment processing.
 
 [![alt text](https://justdjango.s3-us-west-2.amazonaws.com/media/thumbnails/djecommerce.png "Logo")](https://youtu.be/z4USlooVXG0)
+
+---
+
+## Setup for development
+
+開発に必要なライブラリの情報は、`pyproject.toml` の [tool.poetry.dev-dependencies] タグに記載しています。
+
+### Poetry
+
+Pythonファイルの依存関係管理はpoetryを使用します。
+
+1. <https://python-poetry.org/docs/#installation>
+1. `python -m venv venv`
+1. `source venv/bin/activate`
+1. `pip install --upgrade pip` (必要であれば)
+1. `poetry install`
+
+### pre-commit
+
+commitする前に実行するコマンドを定義するツールです。`.pre-commit-config.yaml` に定義済みなので、それを各自の環境に設定する必要があります。下記手順で行ってください。
+
+1. <https://pre-commit.com/#installation>
+1. `pre-commit install`
 
 ---
 
