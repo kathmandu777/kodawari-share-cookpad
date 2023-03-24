@@ -32,14 +32,16 @@
             </a>
           </div>
 
+          <h5 class="font-weight-bold">{{ item.title }}</h5>
+
           <p class="lead">
             {% if object.discount_price %}
             <span class="mr-1">
-              <del>${{ object.price }}</del>
+              <del>¥{{ object.price }}</del>
             </span>
-            <span>${{ object.discount_price }}</span>
+            <span>¥{{ object.discount_price }}</span>
             {% else %}
-            <span>${{ object.price }}</span>
+            <span>¥{{ object.price }}</span>
             {% endif %}
           </p>
 
@@ -57,15 +59,11 @@
 
           </form> {% endcomment %}
           <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
-            Add to cart
+            カートに追加
             <i class="fas fa-shopping-cart ml-1"></i>
           </a>
           <a href="{{ object.get_remove_from_cart_url }}" class="btn btn-danger btn-md my-0 p">
-            Remove from cart
-          </a>
-          <div></div> <!-- Fixme: this fu*king code for style -->
-          <a href="{{ object.shop.gather_link }}" class="btn btn-secondary btn-md p" target="_blank">
-            Contact Seller
+            カートから削除
           </a>
 
         </div>
@@ -93,16 +91,36 @@
       <div class="col-md-6 mb-4">
         <div class="p-4">
 
-          <h5>{{ item.shop.name }}</h5>
-
-          <p class="lead font-weight-bold">Description</p>
+          <h5 class="font-weight-bold">{{ item.shop.name }}</h5>
+          <p p>{{ item.shop.business_hour }}</p>
+          <p class="font-weight-bold">Description</p>
 
           <p>{{ item.shop.description }}</p>
+
+          <a href="{{ object.shop.gather_link }}" class="btn btn-secondary btn-md p" target="_blank">
+            販売者とオンラインで話す
+          </a>
+
         </div>
       </div>
     </div>
     <!--Grid row-->
 
+    <hr>
+
+    <h4 class="my-4 h4 text-center">販売者とオンラインで話すとは？？</h4>
+    <div class="row d-flex justify-content-center wow fadeIn">
+      <div class="col-md-6 mb-4">
+        <img src="/media/gather.avif" alt="" class=" img-fluid">
+        <img src="/media/gather-room.png" alt="" class=" img-fluid">
+      </div>
+
+      <div class="col-md-6 mb-4">
+        <p>Gatherというオンラインコミュニケーションサービスを使用して、生産者の口からこだわりを語ってもらう事ができます！</p>
+        <p>上記サービスの利用には、アカウント登録が必要ですので、お手持ちのgoogleアカウントもしくはemailを用いて作成ください。</p>
+        <p>※上記営業時間中にのみ滞在しています。(たまにいないことがありますがご容赦ください)</p>
+      </div>
+    </div>
 
   </div>
 </main>

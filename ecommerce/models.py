@@ -25,6 +25,7 @@ class Shop(BaseModelMixin):
     name = models.CharField(max_length=100)
     description = models.TextField()
     image = models.ImageField()
+    business_hour = models.CharField(max_length=100, default="9am - 5pm")
     gather_link = models.URLField(max_length=500, blank=True, null=True)
     gather_password = models.CharField(max_length=100, blank=True, null=True)
 
@@ -48,7 +49,7 @@ class Category(BaseModelMixin):
 
 class Item(BaseModelMixin):
     title = models.CharField(max_length=100)
-    price = models.FloatField()
+    price = models.IntegerField()
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE, default=None)
     discount_price = models.FloatField(blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
